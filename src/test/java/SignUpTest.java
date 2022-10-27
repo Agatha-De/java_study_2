@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -11,16 +13,10 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SignUpTest {
+public class SignUpTest extends BaseTest{
 
     @Test
     public void signUpTest(){
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
-
         String lastName = "Testowa";
         int randomNumber = (int) (Math.random()*1000);
         String email = "testerka" + randomNumber + "@tester.pl";
@@ -52,14 +48,7 @@ public class SignUpTest {
     }
 
     @Test
-    public void signUpEmptyForm(){
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
-
-
+    public void signUpEmptyFormTest(){
         driver.findElements(By.xpath("//li[@id='li_myaccount']"))
                 .stream()
                 .filter(WebElement::isDisplayed)
@@ -90,13 +79,7 @@ public class SignUpTest {
     }
 
     @Test
-    public void signUpInvalidEmail(){
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
-
+    public void signUpInvalidEmailTest(){
         String lastName = "Testowa";
         int randomNumber = (int) (Math.random()*1000);
         String email = "testerka" + randomNumber;

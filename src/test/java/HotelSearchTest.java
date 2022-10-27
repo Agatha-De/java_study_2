@@ -1,25 +1,15 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class HotelSearch {
+public class HotelSearchTest extends BaseTest{
 
     @Test
-    public void searchHotel(){
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
+    public void searchHotelTest(){
         driver.findElement(By.xpath("//span[text()='Search by Hotel or City Name']")).click();
         driver.findElement(By.xpath("//div[@id='select2-drop']//input")).sendKeys("Dubai");
         driver.findElement(By.xpath("//span[@class='select2-match' and text()='Dubai']")).click();
@@ -49,16 +39,10 @@ public class HotelSearch {
         Assert.assertEquals(hotelNames.get(1),"Oasis Beach Tower");
         Assert.assertEquals(hotelNames.get(2),"Rose Rayhaan Rotana");
         Assert.assertEquals(hotelNames.get(3),"Hyatt Regency Perth");
-
     }
 
     @Test
-    public void searchHotelWithoutName(){
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
+    public void searchHotelWithoutNameTest(){
         driver.findElement(By.name("checkin")).sendKeys("09/11/2022");
         driver.findElement(By.name("checkout")).click();
 
@@ -76,8 +60,5 @@ public class HotelSearch {
 
         Assert.assertTrue(noResultHeading.isDisplayed());
         Assert.assertEquals(noResultHeading.getText(), "No Results Found");
-
-
     }
-
 }
