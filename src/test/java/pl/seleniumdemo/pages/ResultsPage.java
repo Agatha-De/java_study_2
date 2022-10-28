@@ -16,17 +16,17 @@ public class ResultsPage {
     @FindBy(xpath = "//div[@class='itemscontainer']//h2")
     public WebElement resultHeading;
 
-    public ResultsPage(WebDriver driver){
+    public ResultsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
-    public List<String> getHotelNames(){
+    public List<String> getHotelNames() {
         return hotelList.stream()
                 .map(el -> el.getAttribute("textContent"))
                 .collect(Collectors.toList());
     }
 
-    public String getHeadingText(){
+    public String getHeadingText() {
         return resultHeading.getText();
     }
 

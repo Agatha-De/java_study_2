@@ -10,32 +10,28 @@ import java.util.List;
 public class HotelSearchTest extends BaseTest {
 
     @Test
-    public void searchHotelTest(){
+    public void searchHotelTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
-        hotelSearchPage.setCity("Dubai");
-        hotelSearchPage.setDates("07/11/2022", "30/11/2022");
-        hotelSearchPage.setTravellers(1,2);
-        hotelSearchPage.performSearch();
+        List<String> hotelNames = hotelSearchPage
+                .setCity("Dubai")
+                .setDates("07/11/2022", "30/11/2022")
+                .setTravellers(1, 2)
+                .performSearch().getHotelNames();
 
-        ResultsPage resultsPage = new ResultsPage(driver);
-        List<String> hotelNames = resultsPage.getHotelNames();
-
-        Assert.assertEquals(hotelNames.get(0),"Jumeirah Beach Hotel");
-        Assert.assertEquals(hotelNames.get(1),"Oasis Beach Tower");
-        Assert.assertEquals(hotelNames.get(2),"Rose Rayhaan Rotana");
-        Assert.assertEquals(hotelNames.get(3),"Hyatt Regency Perth");
+        Assert.assertEquals(hotelNames.get(0), "Jumeirah Beach Hotel");
+        Assert.assertEquals(hotelNames.get(1), "Oasis Beach Tower");
+        Assert.assertEquals(hotelNames.get(2), "Rose Rayhaan Rotana");
+        Assert.assertEquals(hotelNames.get(3), "Hyatt Regency Perth");
     }
 
     @Test
-    public void searchHotelWithoutNameTest(){
+    public void searchHotelWithoutNameTest() {
 
-        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
-        hotelSearchPage.setDates("09/11/2022","30/11/2022");
-        hotelSearchPage.setTravellers(0,1);
-        hotelSearchPage.performSearch();
-
-        ResultsPage resultsPage = new ResultsPage(driver);
+        ResultsPage resultsPage = new HotelSearchPage(driver)
+                .setDates("09/11/2022", "30/11/2022")
+                .setTravellers(0, 1)
+                .performSearch();
 
         Assert.assertTrue(resultsPage.resultHeading.isDisplayed());
         Assert.assertEquals(resultsPage.getHeadingText(), "No Results Found");
