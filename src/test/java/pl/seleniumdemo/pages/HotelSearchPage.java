@@ -1,5 +1,7 @@
 package pl.seleniumdemo.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -40,6 +42,8 @@ public class HotelSearchPage {
     @FindBy(xpath = "//a[text()='  Sign Up']")
     private List<WebElement> signUpLink;
 
+    private static final Logger logger = LogManager.getLogger();
+
 
     private WebDriver driver;
 
@@ -49,10 +53,13 @@ public class HotelSearchPage {
     }
 
     public HotelSearchPage setCity(String cityName) {
+        logger.info("Setting city " + cityName);
         searchHotelSpan.click();
         searchHotelInput.sendKeys(cityName);
         String xpath = String.format("//span[@class='select2-match' and text()='%s']", cityName);
         driver.findElement(By.xpath(xpath)).click();
+        logger.info("Setting city done");
+        logger.info("Setting city done");
         return this;
     }
 

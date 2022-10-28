@@ -1,5 +1,6 @@
 package pl.seleniumdemo.tests;
 
+import com.aventstack.extentreports.ExtentTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pl.seleniumdemo.pages.HotelSearchPage;
@@ -11,7 +12,7 @@ public class HotelSearchTest extends BaseTest {
 
     @Test
     public void searchHotelTest() {
-
+        ExtentTest test = extentReports.createTest("Search Hotel Test");
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         List<String> hotelNames = hotelSearchPage
                 .setCity("Dubai")
